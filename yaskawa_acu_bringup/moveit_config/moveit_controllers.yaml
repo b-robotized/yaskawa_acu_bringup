@@ -1,0 +1,18 @@
+# MoveIt executes through the joint_trajectory_controller only. MoveIt never switches controllers.
+/**:
+  ros__parameters:
+    moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+    moveit_simple_controller_manager:
+      controller_names:
+        - joint_trajectory_controller
+      joint_trajectory_controller:
+        action_ns: follow_joint_trajectory
+        type: FollowJointTrajectory
+        default: true
+        joints:
+          - yaskawa_joint_1
+          - yaskawa_joint_2
+          - yaskawa_joint_3
+          - yaskawa_joint_4
+          - yaskawa_joint_5
+          - yaskawa_joint_6

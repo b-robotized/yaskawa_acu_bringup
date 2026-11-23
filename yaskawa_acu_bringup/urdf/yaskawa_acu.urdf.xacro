@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+  Composed MOTOMAN NHC12 description for the NEXT controller.
+
+  Wraps the unchanged upstream motoman_nhc12_a00 macro, which already provides
+  base_link (root, mounting plane), base (= controller BASE frame), flange (X out)
+  and tool0 (Z out = controller tool-0 TCP) under link_6. Adds camera_mount on link_1
+  and the next_ros2_control block of control group R1.
+-->
+<robot name="motoman_nhc12" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default="yaskawa"/>
+  <xacro:arg name="robot_model" default="nhc12"/>
+  <xacro:arg name="ros2_control_hardware_type" default="mock"/>
+  <xacro:arg name="ip_address" default="10.23.23.238"/>
+  <xacro:arg name="port" default="28283"/>
+
+  <xacro:property name="robot_model" value="$(arg robot_model)"/>
+  <!-- xacro cannot nest $(arg) in $(find). Add one include per supported model. -->
+  <xacro:if value="${robot_model == 'nhc12'}">
+    <xacro:include filename="$(find motoman_nhc12_support)/urdf/nhc12_a00_macro.xacro"/>
+  </xacro:if>
+  <xacro:include filename="$(find yaskawa_acu_bringup)/urdf/yaskawa_acu.ros2_control.xacro"/>
+
+  <xacro:call macro="motoman_${robot_model}_a00" prefix="$(arg prefix)_"/>
+
+  <xacro:arg name="thread_priority" default="70"/>
+  <xacro:arg name="cpu_affinity" default="[2,3]"/>
+  <xacro:arg name="scheduling_policy" default="slave"/>
+  <xacro:arg name="is_async" default="true"/>
+
+  <xacro:yaskawa_acu_ros2_control
+    name="$(arg prefix)"
+    prefix="$(arg prefix)"
+    ros2_control_hardware_type="$(arg ros2_control_hardware_type)"
+    ip_address="$(arg ip_address)"
+    port="$(arg port)"
+    is_async="$(arg is_async)"
+    thread_priority="$(arg thread_priority)"
+    cpu_affinity="$(arg cpu_affinity)"
+    scheduling_policy="$(arg scheduling_policy)"
+  />
+</robot>

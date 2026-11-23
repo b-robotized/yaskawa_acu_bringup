@@ -1,0 +1,9 @@
+# Cartesian limits of the Pilz planner (LIN). Accelerations are 2 * v_max. Tune them during the commissioning.
+/**:
+  ros__parameters:
+    robot_description_planning:
+      cartesian_limits:
+        max_trans_vel: 2.0
+        max_trans_acc: 4.0
+        max_trans_dec: -4.0
+        max_rot_vel: 6.28

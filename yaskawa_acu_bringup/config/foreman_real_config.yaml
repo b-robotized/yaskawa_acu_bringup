@@ -1,0 +1,21 @@
+controller_manager: b_controlled_box_cm
+hardware:
+  - yaskawa
+controllers:
+  joint_trajectory_controller:
+    requires: [yaskawa, active]
+  joint_state_broadcaster:
+    requires: [yaskawa, inactive]
+profiles:
+  inactive:
+    controllers:
+      joint_trajectory_controller: inactive
+      joint_state_broadcaster: active
+    hardware:
+      yaskawa: inactive
+  active:
+    controllers:
+      joint_trajectory_controller: active
+      joint_state_broadcaster: active
+    hardware:
+      yaskawa: active

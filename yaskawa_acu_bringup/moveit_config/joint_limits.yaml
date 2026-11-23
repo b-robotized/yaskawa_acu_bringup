@@ -1,0 +1,51 @@
+# Velocity limits come from the URDF. Accelerations are a_max = 2 * v_max per joint.
+# Tune them during the commissioning (100 % PTP moves).
+/**:
+  ros__parameters:
+    robot_description_planning:
+      # Commissioning speed profile: MoveIt scales every request to 10 %.
+      default_velocity_scaling_factor: 0.1
+      default_acceleration_scaling_factor: 0.1
+      joint_limits:
+        yaskawa_joint_1:  # v_max 130 deg/s
+          has_velocity_limits: true
+          max_velocity: 2.2689280275926285
+          has_acceleration_limits: true
+          max_acceleration: 4.537856055185257
+          has_deceleration_limits: true
+          max_deceleration: -4.537856055185257
+        yaskawa_joint_2:  # v_max 130 deg/s
+          has_velocity_limits: true
+          max_velocity: 2.2689280275926285
+          has_acceleration_limits: true
+          max_acceleration: 4.537856055185257
+          has_deceleration_limits: true
+          max_deceleration: -4.537856055185257
+        yaskawa_joint_3:  # v_max 180 deg/s
+          has_velocity_limits: true
+          max_velocity: 3.141592653589793
+          has_acceleration_limits: true
+          max_acceleration: 6.283185307179586
+          has_deceleration_limits: true
+          max_deceleration: -6.283185307179586
+        yaskawa_joint_4:  # v_max 180 deg/s
+          has_velocity_limits: true
+          max_velocity: 3.141592653589793
+          has_acceleration_limits: true
+          max_acceleration: 6.283185307179586
+          has_deceleration_limits: true
+          max_deceleration: -6.283185307179586
+        yaskawa_joint_5:  # v_max 250 deg/s
+          has_velocity_limits: true
+          max_velocity: 4.363323129985824
+          has_acceleration_limits: true
+          max_acceleration: 8.726646259971648
+          has_deceleration_limits: true
+          max_deceleration: -8.726646259971648
+        yaskawa_joint_6:  # v_max 250 deg/s
+          has_velocity_limits: true
+          max_velocity: 4.363323129985824
+          has_acceleration_limits: true
+          max_acceleration: 8.726646259971648
+          has_deceleration_limits: true
+          max_deceleration: -8.726646259971648

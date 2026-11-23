@@ -1,0 +1,13 @@
+repositories:
+  b_robotized_moveit_plugins:
+    type: git
+    url: https://github.com/b-robotized/b_robotized_moveit_plugins.git
+    version: master
+  foreman:
+    type: git
+    url: https://github.com/ros-controls/foreman.git
+    version: master
+  motoman_ros2_support_packages:
+    type: git
+    url: https://github.com/b-robotized-forks/motoman_ros2_support_packages.git
+    version: b-controlled-box/jazzy

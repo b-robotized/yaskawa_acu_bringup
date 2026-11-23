@@ -1,0 +1,25 @@
+# Pilz planning pipeline: PTP and LIN. CIRC does not work: ValidateSolution rejects every CIRC plan.
+/**:
+  ros__parameters:
+    pilz:
+      planning_plugins: [pilz_industrial_motion_planner/CommandPlanner]
+      default_planner_config: PTP
+      request_adapters:
+        - default_planning_request_adapters/ResolveConstraintFrames
+        - default_planning_request_adapters/ValidateWorkspaceBounds
+        - default_planning_request_adapters/CheckStartStateBounds
+        - default_planning_request_adapters/CheckStartStateCollision
+      response_adapters:
+        - default_planning_response_adapters/ValidateSolution
+        - default_planning_response_adapters/DisplayMotionPath
+        - b_robotized_moveit_plugins/CubicSplineSmoothingAdapter
+      capabilities: >-
+        pilz_industrial_motion_planner/MoveGroupSequenceAction
+        pilz_industrial_motion_planner/MoveGroupSequenceService
+
+      # Cubic spline smoothing adapter parameters
+      # https://github.com/b-robotized/b_robotized_moveit_plugins
+      path_dev_max: 0.05
+      pos_tol: 0.01
+      max_time_stretch: 1.50
+      seam_eps: 1e-5

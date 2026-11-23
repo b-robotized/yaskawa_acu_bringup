@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="yaskawa_acu_ros2_control" params="
+    name
+    prefix
+    ros2_control_hardware_type:=mock
+    ip_address:=192.168.1.253
+    port:=28283
+    is_async:=false
+    scheduling_policy:=detached
+    thread_priority:=50
+    cpu_affinity:=''">
+
+    <ros2_control name="${name}" type="system" is_async="${is_async}" rw_rate="250">
+      <xacro:if value="${is_async}">
+        <properties>
+          <async scheduling_policy="${scheduling_policy}" print_warnings="true" thread_priority="${thread_priority}" affinity="${cpu_affinity}"/>
+        </properties>
+      </xacro:if>
+
+      <hardware>
+        <xacro:if value="${ros2_control_hardware_type == 'mock'}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${ros2_control_hardware_type == 'real'}">
+          <plugin>yaskawa_driver/YaskawaACUHardwareInterface</plugin>
+          <param name="ip_address">${ip_address}</param>
+          <param name="port">${port}</param>
+          <param name="read_timeout_ms">20.0</param>
+
+          <param name="buffer_target_slots">10</param>
+          <param name="buffer_trigger">5</param>
+          <param name="tx_min_batch_size">1</param>
+          <param name="buffer_low_warn_slots">2</param>
+
+          <param name="rx_thread_cores">2</param>
+          <param name="rx_thread_priority">70</param>
+          <param name="tx_thread_cores">2</param>
+          <param name="tx_thread_priority">70</param>
+
+          <param name="send_rpc_deadline_ms">200</param>
+          <param name="send_acu_timeout_ms">10</param>
+          <param name="command_queue_capacity">64</param>
+          <param name="power_on_timeout_ms">10000</param>
+          <param name="power_off_timeout_ms">30000</param>
+          <param name="export_health_interfaces">true</param> 
+        </xacro:if>
+      </hardware>
+
+      <joint name="${prefix}_joint_1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <joint name="${prefix}_joint_2">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <joint name="${prefix}_joint_3">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <joint name="${prefix}_joint_4">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <joint name="${prefix}_joint_5">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <joint name="${prefix}_joint_6">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="effort"/>
+      </joint>
+
+      <sensor name="cartesian_pose">
+        <state_interface name="position.x"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="position.y"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="position.z"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="orientation.x"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="orientation.y"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="orientation.z"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="orientation.w"><param name="initial_value">1.0</param></state_interface>
+      </sensor>
+
+    </ros2_control>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,14 @@
+<launch>
+  <arg name="description_package" default="yaskawa_acu_bringup" description="Description package with robot URDF/xacro files. Usually not set, it enables use of a custom description."/>
+  <arg name="robot_model" default="nhc12" description="The Yaskawa robot model to use.">
+      <choice value="nhc12"/>
+  </arg>
+
+  <include file="$(find-pkg-share $(var description_package))/launch/yaskawa_acu_description.launch.xml">
+    <arg name="robot_model" value="$(var robot_model)"/>
+    <arg name="ros2_control_hardware_type" value="mock"/>
+  </include>
+
+  <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" name="joint_state_publisher_node"/>
+  <node pkg="rviz2" exec="rviz2" name="rviz2" output="log" args="-d $(find-pkg-share $(var description_package))/config/yaskawa_acu.rviz --ros-args --log-level fatal"/>
+</launch>
