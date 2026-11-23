@@ -1,6 +1,6 @@
 # yaskawa_acu_bringup
 
-Bringup for a Yaskawa robot that is connected through a NEXT ACU controller and b»controlled box.
+Bringup for a Yaskawa robot that is connected through a NEXT ACU controller and [b»controlled box](https://www.b-robotized.com/b-controlled-box).
 
 | Package | Content |
 |---|---|
